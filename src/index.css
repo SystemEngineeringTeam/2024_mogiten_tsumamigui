@@ -6,3 +6,8 @@
 a {
   text-decoration: inherit;
 }
+
+* {
+  margin: 0;
+  font-family: 'Noto Sans JP', sans-serif;
+}

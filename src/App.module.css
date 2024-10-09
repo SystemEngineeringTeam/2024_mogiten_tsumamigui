@@ -1,0 +1,40 @@
+main {
+  width: 100vw;
+  height: 90vh;
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  gap: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin: 10px 0;
+}
+
+p {
+  font-size: 2rem;
+  font-weight: 500;
+  --user-name-color: #000;
+  color: var(--user-name-color);
+}
+
+button {
+  font-size: 2rem;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  border: none;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+button:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  background-color: aquamarine;
+  box-shadow: 0 0 10px 0 rgba(0, 255, 255, 0.9);
+}
