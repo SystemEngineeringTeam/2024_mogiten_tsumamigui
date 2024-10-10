@@ -1,15 +1,22 @@
+import { useEffect, useState } from 'react';
 import styles from './App.module.css';
-import { AddUserEatCount, GetTotalUserEatCount, UserName } from './utils/EatCount';
+import { saveEatCount, getTotalUserEatCount, getUserEatCounts } from './utils/EatCount';
+import { EatData } from './types/EatData';
 
 function App() {
-  const userName = UserName();
+  const [eatCounts, setEatCounts] = useState<EatData[]>([]);
 
   const addCount = (name: string) => {
     console.log(name);
-    AddUserEatCount(name);
+    setEatCounts((prev) => {
+      return prev.map((data) => {
+        if (data.name === name) return { name, count: data.count + 1 };
+        return data;
+      });
+    });
   };
 
-  const getTotal = GetTotalUserEatCount();
+  const total = getTotalUserEatCount(eatCounts);
 
   const getColorForName = (name: string) => {
     // 名前に基づいて色を生成するロジック
@@ -18,22 +25,34 @@ function App() {
     return color;
   };
 
+  useEffect(() => {
+    setEatCounts(getUserEatCounts());
+  }, []);
+
+  useEffect(() => {
+    if (eatCounts.length === 0) return;
+    saveEatCount(eatCounts);
+  }, [eatCounts]);
+
   return (
     <>
       <h1>
         合計&nbsp;
-        {getTotal}
+        {total}
       </h1>
       <main>
-        {userName.map((name) => (
+        {eatCounts.map(({ name, count }) => (
           <>
-            <p
-              key={name}
-              className={styles.userName}
-              style={{ '--user-name-color': getColorForName(name) } as React.CSSProperties}
-            >
-              {name}
-            </p>
+            <div>
+              <p
+                key={name}
+                className={styles.userName}
+                style={{ '--user-name-color': getColorForName(name) } as React.CSSProperties}
+              >
+                {name}
+              </p>
+              <p className={styles.count}>{`${count}本`}</p>
+            </div>
             <button key={name} onClick={() => addCount(name)} type="button">
               食べた
             </button>

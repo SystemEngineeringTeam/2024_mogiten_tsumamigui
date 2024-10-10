@@ -18,6 +18,11 @@ p {
   font-weight: 500;
   --user-name-color: #000;
   color: var(--user-name-color);
+  text-align: center;
+}
+
+.count {
+  font-size: 1.5rem;
 }
 
 button {
