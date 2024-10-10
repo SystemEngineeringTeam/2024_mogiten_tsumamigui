@@ -1,3 +1,4 @@
+import { Fragment } from 'react/jsx-runtime';
 import styles from './App.module.css';
 import { AddUserEatCount, GetTotalUserEatCount, UserName } from './utils/EatCount';
 
@@ -26,18 +27,17 @@ function App() {
       </h1>
       <main>
         {userName.map((name) => (
-          <>
+          <Fragment key={name}>
             <p
-              key={name}
               className={styles.userName}
               style={{ '--user-name-color': getColorForName(name) } as React.CSSProperties}
             >
               {name}
             </p>
-            <button key={name} onClick={() => addCount(name)} type="button">
+            <button onClick={() => addCount(name)} type="button">
               食べた
             </button>
-          </>
+          </Fragment>
         ))}
       </main>
     </>
