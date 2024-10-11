@@ -1,16 +1,17 @@
 import { Fragment } from 'react/jsx-runtime';
 import styles from './App.module.css';
 import { AddUserEatCount, GetTotalUserEatCount, UserName } from './utils/EatCount';
+import { useState } from 'react';
 
 function App() {
   const userName = UserName();
+  const [totalCount, setTotalCount] = useState(() => GetTotalUserEatCount());
 
   const addCount = (name: string) => {
     console.log(name);
     AddUserEatCount(name);
+    setTotalCount(totalCount + 1);
   };
-
-  const getTotal = GetTotalUserEatCount();
 
   const getColorForName = (name: string) => {
     // 名前に基づいて色を生成するロジック
@@ -23,7 +24,7 @@ function App() {
     <>
       <h1>
         合計&nbsp;
-        {getTotal}
+        {totalCount}
       </h1>
       <main>
         {userName.map((name) => (
